@@ -14,5 +14,13 @@ OptionParser.new do |opts|
 end.parse!
 
 ARGV.each do |slug|
-  ke = KulerExport
+  ke = KulerExport.new(slug, verbose:options[:verbose])
+  puts "# #{slug}"
+  if options[:sass]
+    puts ke.to_sass
+  else
+    puts ke.to_s
+  end
+  puts "## end #{slug}"
+end
 
