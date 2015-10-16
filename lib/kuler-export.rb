@@ -32,7 +32,7 @@ class KulerExport
   end
 
   def to_sass
-    @colors.each_with_index.map { |color, i| "$#{slug_to_scss}_#{i}: #{color}" }.join("\n")
+    @colors.each_with_index.map { |color, i| "$#{slug_to_scss}_#{i + 1}: #{color}" }.join("\n")
   end
 
   private
