@@ -1,0 +1,18 @@
+#! /usr/bin/env ruby
+require 'optparse'
+require 'kuler-export'
+
+options = {sass: false, verbose: false}
+OptionParser.new do |opts|
+  opts.banner = "Usage: kuler-export [options] slug1 slug2 slugN"
+  opts.on("-s", "--sass", "Sass/Scss format") do |s|
+    options[:sass] = s
+  end
+  opts.on("-v", "--verbose", "Run verbosely") do |v|
+    options[:verbose] = true
+  end
+end.parse!
+
+ARGV.each do |slug|
+  ke = KulerExport
+

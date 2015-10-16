@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "kuler-export"
   gem.homepage = "http://github.com/slabgorb/kuler-export"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Exports Adobe Kuler color swatches}
+  gem.description = %Q{Simple gem to export Adobe Kuler swatches.}
   gem.email = "slabgorb@gmail.com"
   gem.authors = ["Keith Avery"]
   # dependencies defined in Gemfile
