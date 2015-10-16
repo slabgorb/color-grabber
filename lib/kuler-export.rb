@@ -1,7 +1,6 @@
 require 'open-uri'
 require 'nokogiri'
 require 'watir'
-require 'headless'
 
 class KulerExport
 
@@ -22,8 +21,6 @@ class KulerExport
   def open_doc
     url = "https://color.adobe.com/#{@slug}"
     puts "opening #{url}" if @verbose
-    # headless = Headless.new
-    # headless.start
     browser = Watir::Browser.start url
     doc = Nokogiri::HTML(browser.html)
     browser.close
@@ -35,7 +32,12 @@ class KulerExport
   end
 
   def to_sass
-    @colors.each_with_index.map { |color, i| "$#{@slug}_#{i}: #{color}" }.join("\n")
+    @colors.each_with_index.map { |color, i| "$#{slug_to_scss}_#{i}: #{color}" }.join("\n")
+  end
+
+  private
+  def slug_to_scss
+    @slug.gsub(/-color-theme-[0-9]+/,'').downcase
   end
 
 end

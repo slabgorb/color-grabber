@@ -2,7 +2,6 @@ source "http://rubygems.org"
 
 gem 'nokogiri'
 gem "watir", "~>4.0"
-gem "headless"
 
 group :development do
   gem "test-unit"
