@@ -1,6 +1,7 @@
 require 'open-uri'
 require 'nokogiri'
 require 'watir'
+require 'color'
 
 class KulerExport
 
@@ -11,12 +12,18 @@ class KulerExport
     @slug = slug
     @doc = doc ? doc : open_doc
     @colors = find_colors
+    sort_colors
     puts "Verbose mode: doc length: #{@doc.to_s.length}" if @verbose
   end
 
   def find_colors
     @doc.css('.themeBox li').map { |li| li.attr('title') }
   end
+
+  def sort_colors
+    @colors.sort! {|a,b| Color::RGB.by_hex(a).brightness <=> Color::RGB.by_hex(b).brightness }
+  end
+
 
   def open_doc
     url = "https://color.adobe.com/#{@slug}"

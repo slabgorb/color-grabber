@@ -2,6 +2,7 @@ source "http://rubygems.org"
 
 gem 'nokogiri'
 gem "watir", "~>4.0"
+gem "color"
 
 group :development do
   gem "test-unit"
