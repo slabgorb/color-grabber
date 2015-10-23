@@ -4,9 +4,10 @@ require 'kuler-export'
 
 options = {sass: false, verbose: false}
 OptionParser.new do |opts|
-  opts.banner = "Usage: kuler-export [options] slug1 slug2 slugN"
-  opts.on("-s", "--sass", "Sass/Scss format") do |s|
-    options[:sass] = s
+  opts.banner = "Usage: color-grabber [options] slug1 slug2 slugN"
+  opts.on("
+  opts.on("-f", "--format", "format, one of 'sass, css, text'") do |s|
+    options[:format] = s
   end
   opts.on("-v", "--verbose", "Run verbosely") do |v|
     options[:verbose] = true
@@ -16,7 +17,7 @@ end.parse!
 ARGV.each do |slug|
   ke = KulerExport.new(slug, verbose:options[:verbose])
   puts "# #{slug}"
-  if options[:sass]
+  if options[:format] = 'scss'
     puts ke.to_sass
   else
     puts ke.to_s

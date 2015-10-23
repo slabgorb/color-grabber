@@ -1,6 +1,6 @@
-= kuler-export
+= Color Grabber
 
-Export colors from Adobe Kuler
+Exports colors from color sites
 
 Requires firefox for scraping the adobe site. 
 
