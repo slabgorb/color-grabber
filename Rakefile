@@ -14,11 +14,11 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://guides.rubygems.org/specification-reference/ for more options
-  gem.name = "kuler-export"
-  gem.homepage = "http://github.com/slabgorb/kuler-export"
+  gem.name = "color-grabber"
+  gem.homepage = "http://github.com/slabgorb/color-grabber"
   gem.license = "MIT"
-  gem.summary = %Q{Exports Adobe Kuler color swatches}
-  gem.description = %Q{Simple gem to export Adobe Kuler swatches.}
+  gem.summary = %Q{Exports color swatches}
+  gem.description = %Q{Simple gem to export color swatches from color pallete site}
   gem.email = "slabgorb@gmail.com"
   gem.authors = ["Keith Avery"]
   # dependencies defined in Gemfile
@@ -45,7 +45,7 @@ Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "kuler-export #{version}"
+  rdoc.title = "color-grabber #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end

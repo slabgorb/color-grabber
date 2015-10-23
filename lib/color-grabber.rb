@@ -3,16 +3,25 @@ require 'nokogiri'
 require 'watir'
 require 'color'
 
-class GolorGrabber
+class ColorGrabber
   attr_reader :colors
 
   def initialize(slug, verbose: false)
     @verbose = verbose
     @slug = slug
-    @doc = doc ? doc : open_doc
+    @doc = open_doc
     @colors = find_colors
     sort_colors
+    upcase
     puts "Verbose mode: doc length: #{@doc.to_s.length}" if @verbose
+  end
+
+  def name
+    @slug
+  end
+
+  def upcase
+    @colors.map!{|c| c.upcase }
   end
 
   def sort_colors
@@ -32,33 +41,49 @@ class GolorGrabber
   end
 
   def to_sass
-    @colors.each_with_index.map { |color, i| "$#{slug_to_scss}_#{i + 1}: #{color};" }.join("\n")
+    @colors.each_with_index.map { |color, i| "$#{name_to_scss}_#{i + 1}: #{color};" }.join("\n")
   end
 
   protected
-  def slug_to_scss
-    @slug.gsub(/-color-theme-[0-9]+/,'').gsub('-','_').downcase
+  def name_to_scss
+    name.gsub(/-color-theme-[0-9]+/,'').gsub('-','_').downcase
   end
 
 end
 
-class ColorGrabberDecorator < SimpleDelegator
-  def initialize(color_grabber)
-    @color_grabber = color_grabber
-    super
+
+class ColourLovers < ColorGrabber
+  def url
+    "http://www.colourlovers.com/palette/#{@slug}"
+  end
+  def find_colors
+    @doc.css('a.color').map { |a| "#" << a.attr('href').split('/')[1] }
   end
 end
 
-class DesignSeeds < ColorGrabberDecorator
+
+class ColorHex < ColorGrabber
+  def url
+    "http://www.color-hex.com/color-palette/#{@slug}"
+  end
+  def find_colors
+    @doc.css('.palettecolordivc').map { |a| a.attr('title') }
+  end
+  def name
+    @doc.css('#breadcrumb div em').inner_text()
+  end
+end
+
+class DesignSeeds < ColorGrabber
   def url
     "http://design-seeds.com/home/entry/#{@slug}"
   end
   def find_colors
-    @doc.css('.similar a').map { |a| a.attr('data-color') }
+    @doc.css('.similar a').map { |a| "#" << a.attr('data-color') }
   end
 end
 
-class Kuler < ColorGrabberDecorator
+class Kuler < ColorGrabber
   def url
     "https://color.adobe.com/#{@slug}"
   end
