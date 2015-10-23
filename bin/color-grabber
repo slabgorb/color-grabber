@@ -1,14 +1,14 @@
 #! /usr/bin/env ruby
 require 'optparse'
-require 'kuler-export'
+require 'color-grabber'
 
 options = {format: 'sass', verbose: false}
 OptionParser.new do |opts|
   opts.banner = "Usage: color-grabber [options] slug1 slug2 slugN"
-  opts.on("-s", "--site", "one of 'kuler, colorhex, colourlovers, designseeds'") do |s|
+  opts.on("-s", "--site SITE", "one of 'kuler, colorhex, colourlovers, designseeds'") do |s|
     options[:site] = s
   end
-  opts.on("-f", "--format", "format, one of 'sass, css, text'") do |s|
+  opts.on("-f", "--format FORMAT", "format, one of 'sass, css, text'") do |s|
     options[:format] = s
   end
   opts.on("-v", "--verbose", "Run verbosely") do |v|
@@ -16,19 +16,19 @@ OptionParser.new do |opts|
   end
 end.parse!
 
+
 ARGV.each do |slug|
   klass = case options[:site]
           when 'kuler' then Kuler
           when 'colorhex' then ColorHex
           when 'colourlovers' then ColourLovers
           when 'designseeds' then DesignSeeds
-  end
+          end
+  format_method = case options[:format]
+                  when 'sass' then :to_sass
+                  when 'text' then :to_text
+                  when 'css' then :to_css
+                  end
   cg = klass.new(slug, verbose:options[:verbose])
-  puts "# #{cg.name}"
-  if options[:format] = 'sass'
-    puts cg.to_sass
-  else
-    puts cg.to_s
-  end
-  puts "## end #{cg.name}"
+  puts cg.send(format_method)
 end
