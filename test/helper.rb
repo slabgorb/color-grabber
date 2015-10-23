@@ -30,5 +30,7 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'color-grabber'
 
+
+
 class Test::Unit::TestCase
 end

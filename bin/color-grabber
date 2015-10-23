@@ -19,10 +19,10 @@ end.parse!
 
 ARGV.each do |slug|
   klass = case options[:site]
-          when 'kuler' then Kuler
-          when 'colorhex' then ColorHex
-          when 'colourlovers' then ColourLovers
-          when 'designseeds' then DesignSeeds
+          when 'kuler' then ColorGrabber::Kuler
+          when 'colorhex' then ColorGrabber::ColorHex
+          when 'colourlovers' then ColorGrabber::ColourLovers
+          when 'designseeds' then ColorGrabber::DesignSeeds
           end
   format_method = case options[:format]
                   when 'sass' then :to_sass
