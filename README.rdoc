@@ -5,12 +5,9 @@ Exports colors from color sites
 Requires firefox for scraping the adobe site. 
 
 
-
-
-```
-Usage: color-grabber [options] slug1 slug2 slugN
-    -s, --site SITE                  one of 'kuler, colorhex, colourlovers, designseeds'
-    -f, --format FORMAT              format, one of 'sass, css, text'
-    -v, --verbose                    Run verbosely
+    Usage: color-grabber [options] slug1 slug2 slugN
+        -s, --site SITE                  one of 'kuler, colorhex, colourlovers, designseeds'
+        -f, --format FORMAT              format, one of 'sass, css, text'
+        -v, --verbose                    Run verbosely
     
-```    
+    
